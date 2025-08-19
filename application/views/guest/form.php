@@ -37,163 +37,129 @@
         </div>
       </div><!-- end hero -->
 
-      <!-- =========={ CONTACT FORM }==========  -->
-      <div id="contact" class="section py-6 pt-md-7 bg-body">
-        <div class="container">
-          <!-- section header -->
-          <header class="text-center mx-auto mb-5">
-            <h2 class="h3 fw-bold">Daftar <span class="fw-light">Tamu</span></h2>
-            <hr class="divider my-4 bg-warning border-warning">
-            <p class="lead text-muted">Tabel data kunjungan tamu hari ini.</p>
-          </header>
+        <!-- =========={ CONTACT SECTION / RIWAYAT TAMU }==========  -->
+  <div id="contact" class="section py-6 pt-md-7 bg-body">
+    <div class="container">
+      <header class="text-center mx-auto mb-5">
+        <h2 class="h3 fw-bold">Daftar <span class="fw-light">Tamu</span></h2>
+        <hr class="divider my-4 bg-warning border-warning">
+        <p class="lead text-muted">Riwayat kunjungan tamu hari ini.</p>
+      </header>
 
-        <table id="example" class="table table-striped display">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <!-- <th>Foto</th> -->
-                    <th>Nama</th>
-                    <th>Nomor HP</th>
-                    <th>Asal Instansi</th>
-                    <th>Keperluan</th>
-                    <th>Bertemu dengan</th>
-                    <th>Tujuan Ruangan</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; foreach ($guests as $t): ?>
-                <tr>
-                    <td><?php echo $no++; ?></td>
-                    <td><?php
-                     $tanggal = date('d-m-Y', strtotime($t->created_at));
-                     echo $tanggal; 
-                     ?>
-                    </td>
-                    <!-- <td>
-                      <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $t->id; ?>">    
-                        <img src="<?php echo base_url('assets/uploads/'. $t->photo); ?>" width="50" height="50">
-                      </a>
-                    </td> -->
-                    <td><?php echo $t->name; ?></td>
-                    <td><?php echo $t->phone; ?></td>
-                    <td><?php echo $t->institution; ?></td>
-                    <td><?php echo $t->purpose; ?></td>
-                    <td><?php echo $t->user_name; ?></td>
-                    <td><?php echo $t->room_name; ?></td>
-                    <td>
-                    <a href="" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#detail_tamu<?php echo $t->id; ?>">
-                      Lihat Detail
-                    </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-                <?php if (empty($guests)): ?>
-                    <div class="alert alert-warning">
-                        No guests found in the system.
-                    </div>
-                <?php endif; ?>
-            </tbody>
-        </table>
+      <!-- ✅ Desain Kartu Horizontal Modern -->
+      <style>
+        .card-guest {
+          display: flex;
+          border: 1px solid #ddd;
+          
+          border-radius: 30px;
+          overflow: hidden;
+          margin-bottom: 1.5rem;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+          background-color: #ffffffff;
+        }
 
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable({
-                    responsive: true,
-                    paging: true,        // Aktifkan pagination
-                    searching: true,     // Aktifkan pencarian
-                    ordering: true,      // Aktifkan sorting
-                    pageLength: 10,      // Jumlah entri per halaman
-                });
-            });
-        </script>
+        .card-guest .left {
+          background-color: whitesmoke;
+          color: white;
+          width: 350px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
-        </div>
-      </div><!-- End Contact Form -->
+        .card-guest .left img {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid white;
+        }
 
-     
+        .card-guest .right {
+          padding: 1.2rem;
+          flex: 1;
+        }
 
-      <!-- Button trigger modal -->
+        .card-guest .right h5 {
+          margin: 0;
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
 
-<!-- Modal Foto -->
-<?php foreach ($guests as $guest) : ?>
-    <div class="modal fade" id="exampleModal<?php echo $guest->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Foto Tamu : <?php echo $guest->name ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        .card-guest .right small {
+          color: gray;
+        }
+
+        .card-guest .info {
+          margin-top: 10px;
+          font-size: 0.95rem;
+        }
+
+        .card-guest .info div {
+          margin-bottom: 5px;
+        }
+      </style>
+
+      <?php if (!empty($guests)): ?>
+        <?php foreach ($guests as $guest): ?>
+          <div class="card-guest">
+            <div class="left">
+              <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu">
             </div>
-            <div class="modal-body">
-                <img src="<?php echo base_url('assets/uploads/'. $guest->photo) ?>" width="100%" alt="">
+            <div class="right">
+              <h5><?= $guest->name ?></h5>
+              <small><?= date('d M Y', strtotime($guest->created_at)) ?></small>
+              <div class="info">
+                <div><strong>Nomor HP:</strong> <?= $guest->phone ?></div>
+                <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
+                <div><strong>Keperluan:</strong> <?= $guest->purpose ?></div>
+                <div><strong>Bertemu:</strong> <?= $guest->user_name ?></div>
+                <div><strong>Ruangan:</strong> <?= $guest->room_name ?></div>
+              </div>
+              <a href="" class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="modal" data-bs-target="#detail_tamu<?= $guest->id; ?>">Lihat Detail</a>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-    </div>  
+          </div>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <div class="alert alert-warning">Tidak ada tamu hari ini.</div>
+      <?php endif; ?>
+    </div>
+  </div><!-- End Contact -->
 
-    <!-- Detail Tamu -->
-    <div class="modal fade mt-5" id="detail_tamu<?php echo $guest->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Tamu : <?php echo $guest->name ?></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+  <!-- =========={ MODAL DETAIL }========== -->
+  <?php foreach ($guests as $guest): ?>
+    <div class="modal fade" id="detail_tamu<?php echo $guest->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detail Tamu: <?= $guest->name ?></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
             <div class="row">
               <div class="col-lg-5">
-                <img src="<?php echo base_url('assets/uploads/'. $guest->photo) ?>" width="100%" class="img img-thumbnail" alt="">
+                <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" width="100%" class="img img-thumbnail" alt="">
               </div>
               <div class="col-lg-7">
                 <table class="table mt-2">
-                  <tr>
-                    <td><b>Nama Lengkap</b></td>
-                    <td>:</td>
-                    <td><?= $guest->name ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Nomor HP</b></td>
-                    <td>:</td>
-                    <td><?= $guest->phone ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Asal Instansi/Perusahaan</b></td>
-                    <td>:</td>
-                    <td><?= $guest->institution ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Keperluan</b></td>
-                    <td>:</td>
-                    <td><?= $guest->purpose ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Bertemu Dengan</b></td>
-                    <td>:</td>
-                    <td><?= $guest->user_name ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Ruangan yang dituju</b></td>
-                    <td>:</td>
-                    <td><?= $guest->room_name ?></td>
-                  </tr>
-                  <tr>
-                    <td><b>Tandatangan</b></td>
-                    <td>:</td>
-                    <td><img src="<?= base_url('assets/img/icon_ceklis.png') ?>" width="25px" alt=""></td>
-                  </tr>
+                  <tr><td><b>Nama Lengkap</b></td><td>:</td><td><?= $guest->name ?></td></tr>
+                  <tr><td><b>Nomor HP</b></td><td>:</td><td><?= $guest->phone ?></td></tr>
+                  <tr><td><b>Asal Instansi</b></td><td>:</td><td><?= $guest->institution ?></td></tr>
+                  <tr><td><b>Keperluan</b></td><td>:</td><td><?= $guest->purpose ?></td></tr>
+                  <tr><td><b>Bertemu Dengan</b></td><td>:</td><td><?= $guest->user_name ?></td></tr>
+                  <tr><td><b>Ruangan</b></td><td>:</td><td><?= $guest->room_name ?></td></tr>
+                  <tr><td><b>Tandatangan</b></td><td>:</td><td><img src="<?= base_url('assets/img/icon_ceklis.png') ?>" width="25px" alt=""></td></tr>
                 </table>
               </div>
             </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          </div>
         </div>
-    </div>  
-<?php endforeach; ?>
-    </main><!-- end main -->
+      </div>
+    </div>
+  <?php endforeach; ?>
+
+</main><!-- end main -->
