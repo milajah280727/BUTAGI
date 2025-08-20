@@ -7,8 +7,10 @@
                 <img class="logo-dark" src="<?= base_url('assets/'); ?>src/img/ceren.png" alt="LOGO">
             </a>
 
-            <!-- Microphone Indicator -->
-            <div id="micIndicator" style="width: 20px; height: 20px; border-radius: 50%; background-color: red; position: absolute; top: 10px; right: 10px; z-index: 1000;"></div>
+            <!-- Microphone Indicator (Clickable) -->
+            <a href="<?= site_url('chatbot/test') ?>">
+                <div id="micIndicator" style="width: 20px; height: 20px; border-radius: 50%; background-color: red; position: absolute; top: 10px; right: 10px; z-index: 1000;"></div>
+            </a>
 
             <!-- Navbar Toggler -->
             <button class="navbar-toggler" type="button"
