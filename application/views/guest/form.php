@@ -1,165 +1,220 @@
-  <!-- =========={ MAIN }==========  -->
-  <main id="content">
-      <!-- =========={ HERO }==========  -->
-      <div id="hero" class="section py-7 py-md-8 jarallax" data-jarallax-video="https://www.youtube.com/watch?v=slRB0gbIof0&list=PLtNOL2RWahUx60ol2OPjJ1Oli47zjLPbK">
+<!-- =========={ MAIN }==========  -->
+<main id="content">
+    <!-- =========={ HERO }==========  -->
+    <div id="hero" class="section py-7 py-md-8 jarallax" data-jarallax-video="https://www.youtube.com/watch?v=slRB0gbIof0&list=PLtNOL2RWahUx60ol2OPjJ1Oli47zjLPbK">
         <!-- background overlay -->
         <div class="overlay bg-gradient-primary opacity-80 z-index-n1"></div>
 
         <div class="container">
-          <div class="row justify-content-center">
-            <!-- content -->
-            <div class="col-lg-7" data-aos="fade-up">
-              <div class="mt-6 mt-lg-4 py-0 py-lg-5 text-center">
-                <!-- Pesan Error jika login gagal -->
-                <h1 class="display-4 fw-bold text-white mb-3">Selamat Datang <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
-                <p class="lead text-light mb-5">Silakan untuk mengisi form Buku Tamu Digital dengan mengklik Icon dibawah ini.</p><br>
-                <a href="<?php echo base_url('');?>GuestController/guest_form" class="btn btn-lg btn-warning text-dark">
-                  Isi Form Buku Tamu
-                  <svg class="bi bi-chevron-double-right ms-2" width=".8rem" height=".8rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
-                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
-                  </svg>
-                </a>
-              </div>
-            </div><!-- end content -->
-          </div>
+            <div class="row justify-content-center">
+                <!-- content -->
+                <div class="col-lg-7" data-aos="fade-up">
+                    <div class="mt-6 mt-lg-4 py-0 py-lg-5 text-center">
+                        <!-- Pesan Error jika login gagal -->
+                        <h1 class="display-4 fw-bold text-white mb-3">Selamat Datang <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
+                        <p class="lead text-light mb-5">Silakan untuk mengisi form Buku Tamu Digital dengan mengklik Icon dibawah ini.</p><br>
+                        <a href="<?php echo base_url('');?>GuestController/guest_form" class="btn btn-lg btn-warning text-dark">
+                            Isi Form Buku Tamu
+                            <svg class="bi bi-chevron-double-right ms-2" width=".8rem" height=".8rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div><!-- end content -->
+            </div>
         </div>
 
         <!--  -->
 
         <!-- mathead -->
         <div class="masthead animated-up-down d-none d-md-block">
-          <a href="#contact">
-            <div class="mouse-icon">
-              <div class="scroller"><span class="visually-hidden">Scroll button</span></div>
-            </div>
-          </a>
+            <a href="#contact">
+                <div class="mouse-icon">
+                    <div class="scroller"><span class="visually-hidden">Scroll button</span></div>
+                </div>
+            </a>
         </div>
-      </div><!-- end hero -->
+    </div><!-- end hero -->
 
-        <!-- =========={ CONTACT SECTION / RIWAYAT TAMU }==========  -->
-  <div id="contact" class="section py-6 pt-md-7 bg-body">
+<!-- =========={ SECTIONS / RIWAYAT TAMU }========== -->
+<div id="contact" class="section py-6 pt-md-7 bg-body">
     <div class="container">
-      <header class="text-center mx-auto mb-5">
-        <h2 class="h3 fw-bold">Daftar <span class="fw-light">Tamu</span></h2>
-        <hr class="divider my-4 bg-warning border-warning">
-        <p class="lead text-muted">Riwayat kunjungan tamu hari ini.</p>
-      </header>
+        <!-- Update header untuk Daftar Tamu Terpilih -->
+        <header class="text-center mx-auto mb-5">
+            <h2 class="h3 fw-bold">Daftar <span class="fw-light">Tamu Terpilih</span></h2>
+            <hr class="divider my-4 bg-warning border-warning">
+            <p class="lead text-muted">Daftar tamu yang dipilih untuk ditampilkan.</p>
+        </header>
 
-      <!-- ✅ Desain Kartu Horizontal Modern -->
-      <style>
-        .card-guest {
-          display: flex;
-          border: 1px solid #ddd;
-          
-          border-radius: 30px;
-          overflow: hidden;
-          margin-bottom: 1.5rem;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-          background-color: #ffffffff;
-        }
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-        .card-guest .left {
-          background-color: whitesmoke;
-          color: white;
-          width: 350px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+        <!-- Styling untuk Carousel -->
+        <style>
+            .swiper-container {
+                width: 100%;
+                padding: 20px 0;
+            }
 
-        .card-guest .left img {
-          width: 70px;
-          height: 70px;
-          border-radius: 50%;
-          object-fit: cover;
-          border: 2px solid white;
-        }
+            .card-guest {
+                border: 1px solid #ddd;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                background-color: transparent;
+                height: 350px; /* Adjusted height for larger photo */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
 
-        .card-guest .right {
-          padding: 1.2rem;
-          flex: 1;
-        }
+            .card-guest .photo-container {
+                background-color: whitesmoke;
+                width: 100%;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .card-guest .right h5 {
-          margin: 0;
-          font-weight: bold;
-          font-size: 1.2rem;
-        }
+            .card-guest .photo-container img {
+                width: 150px; /* Enlarged photo size */
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid white;
+            }
 
-        .card-guest .right small {
-          color: gray;
-        }
+            .card-guest .details-container {
+                padding: 1.2rem;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: transparent; /* Transparent background */
+            }
 
-        .card-guest .info {
-          margin-top: 10px;
-          font-size: 0.95rem;
-        }
+            .card-guest .details-container h5 {
+                margin: 0;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
 
-        .card-guest .info div {
-          margin-bottom: 5px;
-        }
-      </style>
+            .card-guest .details-container small {
+                color: white;
+            }
 
-      <?php if (!empty($guests)): ?>
-        <?php foreach ($guests as $guest): ?>
-          <div class="card-guest">
-            <div class="left">
-              <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu">
+            .card-guest .info {
+                margin-top: 10px;
+                font-size: 0.95rem;
+            }
+
+            .card-guest .info div {
+                margin-bottom: 5px;
+            }
+
+            /* Styling Tombol Navigasi Swiper */
+            .swiper-button-next,
+            .swiper-button-prev {
+                color: #333;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+            }
+
+            .swiper-button-next:after,
+            .swiper-button-prev:after {
+                font-size: 20px;
+            }
+
+            .swiper-pagination {
+                position: relative;
+                margin-top: 20px;
+            }
+
+            .swiper-pagination-bullet {
+                background-color: #333;
+            }
+
+            .swiper-pagination-bullet-active {
+                background-color: #43350cff;
+            }
+        </style>
+
+        <!-- Struktur Carousel -->
+        <?php if (!empty($guests)): ?>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <?php $first_item = true; ?>
+                    <?php foreach ($guests as $guest): ?>
+                        <div class="swiper-slide">
+                            <div class="card-guest">
+                                <div class="photo-container">
+                                    <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu" class="img-fluid rounded-circle">
+                                </div>
+                                <div class="details-container">
+                                    <h5><?= $guest->name ?></h5>
+                                    <small><?= date('d M Y', strtotime($guest->created_at)) ?></small>
+                                    <div class="info mt-3">
+                                        <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $first_item = false; ?>
+                    <?php endforeach; ?>
+                </div>
+
+                <!-- Tombol Navigasi -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+                <!-- Paginasi -->
+                <div class="swiper-pagination"></div>
             </div>
-            <div class="right">
-              <h5><?= $guest->name ?></h5>
-              <small><?= date('d M Y', strtotime($guest->created_at)) ?></small>
-              <div class="info">
-                <div><strong>Nomor HP:</strong> <?= $guest->phone ?></div>
-                <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
-                <div><strong>Keperluan:</strong> <?= $guest->purpose ?></div>
-                <div><strong>Bertemu:</strong> <?= $guest->user_name ?></div>
-                <div><strong>Ruangan:</strong> <?= $guest->room_name ?></div>
-              </div>
-              <a href="" class="btn btn-sm btn-outline-secondary mt-2" data-bs-toggle="modal" data-bs-target="#detail_tamu<?= $guest->id; ?>">Lihat Detail</a>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      <?php else: ?>
-        <div class="alert alert-warning">Tidak ada tamu hari ini.</div>
-      <?php endif; ?>
+        <?php else: ?>
+            <div class="alert alert-warning">Tidak ada tamu terpilih.</div>
+        <?php endif; ?>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <!-- Script Inisialisasi Swiper -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 30,
+                        },
+                    },
+                });
+            });
+        </script>
     </div>
-  </div><!-- End Contact -->
-
-  <!-- =========={ MODAL DETAIL }========== -->
-  <?php foreach ($guests as $guest): ?>
-    <div class="modal fade" id="detail_tamu<?php echo $guest->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Detail Tamu: <?= $guest->name ?></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-5">
-                <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" width="100%" class="img img-thumbnail" alt="">
-              </div>
-              <div class="col-lg-7">
-                <table class="table mt-2">
-                  <tr><td><b>Nama Lengkap</b></td><td>:</td><td><?= $guest->name ?></td></tr>
-                  <tr><td><b>Nomor HP</b></td><td>:</td><td><?= $guest->phone ?></td></tr>
-                  <tr><td><b>Asal Instansi</b></td><td>:</td><td><?= $guest->institution ?></td></tr>
-                  <tr><td><b>Keperluan</b></td><td>:</td><td><?= $guest->purpose ?></td></tr>
-                  <tr><td><b>Bertemu Dengan</b></td><td>:</td><td><?= $guest->user_name ?></td></tr>
-                  <tr><td><b>Ruangan</b></td><td>:</td><td><?= $guest->room_name ?></td></tr>
-                  <tr><td><b>Tandatangan</b></td><td>:</td><td><img src="<?= base_url('assets/img/icon_ceklis.png') ?>" width="25px" alt=""></td></tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <?php endforeach; ?>
-
-</main><!-- end main -->
+</div>
+<!-- Akhir Contact -->
+</main>

@@ -57,13 +57,13 @@ $route['login'] = 'login/index';  // Halaman Login
 $route['login/verify'] = 'login/verify';  // Proses verifikasi login
 $route['login/logout'] = 'login/logout';  // Proses logout
 
-$route['superadmin/dashboard'] = 'superadmin/dashboard';
-$route['superadmin/kelola_tamu'] = 'superadmin/kelola_tamu';
-$route['superadmin/kelola_admin'] = 'superadmin/kelola_admin';
-$route['superadmin/kelola_ruangan'] = 'superadmin/kelola_ruangan';
+$route['superadmin/dashboard'] = 'superadmin/index'; // Sesuaikan dengan method index
+$route['superadmin/kelola_tamu'] = 'superadmin/manage_guests';
+$route['superadmin/kelola_admin'] = 'superadmin/manage_admins';
+$route['superadmin/kelola_ruangan'] = 'superadmin/manage_rooms';
+$route['superadmin/kelola_tamu_terpilih'] = 'superadmin/manage_featured_guests'; // Rute baru
 
 $route['admin/export/pdf'] = 'AdminController/export_guests_pdf';
 
-//chatbot route
-$route['chatbot/test']= 'chatbotController/index';
-
+// Chatbot route
+$route['chatbot/test'] = 'chatbotController/index';

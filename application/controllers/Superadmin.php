@@ -179,5 +179,28 @@ class Superadmin extends CI_Controller {
         $this->load->view('superadmin/export_guests', $data);
         $this->load->view('template_admin/footer');
     }
-    
+
+    // Method baru untuk manage featured guests
+    public function manage_featured_guests() {
+        $data['title'] = 'Manage Featured Guests';
+        $data['guests'] = $this->Guest_model->get_all_guests(); // Ambil semua tamu untuk manajemen
+
+        // Handle toggle featured via POST
+        if ($this->input->post('action') == 'toggle_featured') {
+            $id = $this->input->post('id');
+            $current_featured = $this->input->post('current_featured');
+            $new_featured = ($current_featured == 1) ? 0 : 1; // Toggle 0/1
+            if ($this->Guest_model->toggle_featured($id, $new_featured)) {
+                $this->session->set_flashdata('success', 'Status featured tamu berhasil diubah.');
+            } else {
+                $this->session->set_flashdata('error', 'Gagal mengubah status featured.');
+            }
+            redirect('superadmin/manage_featured_guests');
+        }
+
+        $this->load->view('template_admin/header');
+        $this->load->view('template_admin/sidebar');
+        $this->load->view('superadmin/manage_featured_guests', $data);
+        $this->load->view('template_admin/footer');
+    }
 }
