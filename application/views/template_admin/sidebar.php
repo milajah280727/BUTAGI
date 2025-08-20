@@ -13,90 +13,102 @@
                 </div>
                 <?php if ($_SESSION['role'] == 'admin_ruangan') : ?>
                     <div class="sidebar-brand-text mx-3">Admin Ruangan</div>
-                    <?php else : ?>
-                        <div class="sidebar-brand-text mx-3">Superadmin</div>
+                <?php else : ?>
+                    <div class="sidebar-brand-text mx-3">Superadmin</div>
                 <?php endif; ?>
             </a>
 
             <?php if ($_SESSION['role'] == 'admin_ruangan') : ?>
                 <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+                <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == '') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('AdminController/') ?>">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == '') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('AdminController/') ?>">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Export Tamu
-            </div>
-            <!-- Nav Item - Charts -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == 'export_guests') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('AdminController/export_guests') ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Export Data Tamu</span>
-                </a>
-            </li>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Export Tamu
+                </div>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == 'export_guests') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('AdminController/export_guests') ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Export Data Tamu</span>
+                    </a>
+                </li>
 
             <?php else : ?>
                 <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+                <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == '') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('superadmin/') ?>">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == '' || $this->uri->segment(2) == 'index') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('superadmin/') ?>">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Export Tamu
-            </div>
-            <!-- Nav Item - Charts -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == 'export_guests') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('superadmin/export_guests') ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Export Data Tamu</span>
-                </a>
-            </li>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Export Tamu
+                </div>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == 'export_guests') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('superadmin/export_guests') ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Export Data Tamu</span>
+                    </a>
+                </li>
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Admin Ruangan
-            </div>
-            <!-- Nav Item - Charts -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == 'manage_admins') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('superadmin/manage_admins') ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Kelola Admin</span>
-                </a>
-            </li>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Admin Ruangan
+                </div>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == 'manage_admins') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('superadmin/manage_admins') ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Kelola Admin</span>
+                    </a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Ruangan
-            </div>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Ruangan
+                </div>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == 'manage_rooms') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('superadmin/manage_rooms') ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Kelola Ruangan</span>
+                    </a>
+                </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item <?php echo ($this->uri->segment(2) == 'manage_rooms') ? 'active' : ''; ?>">
-                <a class="nav-link" href="<?= base_url('superadmin/manage_rooms') ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Kelola Ruangan</span>
-                </a>
-            </li>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Tamu Terpilih
+                </div>
+                <!-- Nav Item - Charts -->
+                <li class="nav-item <?php echo ($this->uri->segment(2) == 'manage_featured_guests') ? 'active' : ''; ?>">
+                    <a class="nav-link" href="<?= base_url('superadmin/kelola_tamu_terpilih') ?>">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Kelola Tamu Terpilih</span>
+                    </a>
+                </li>
+
             <?php endif; ?>
 
             <!-- Divider -->

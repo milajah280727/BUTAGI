@@ -17,7 +17,7 @@ class GuestController extends CI_Controller {
     }
 
     public function index() {
-        $data['guests'] = $this->Guest_model->get_all_guests();
+        $data['guests'] = $this->Guest_model->get_featured_guests(); // Ubah ke featured guests
         $data['rooms'] = $this->Guest_model->get_all_rooms();
         $this->load->view('templates/header');
         $this->load->view('templates/navigator');
@@ -84,7 +84,7 @@ class GuestController extends CI_Controller {
     
 
     public function today() {
-        $data['guests'] = $this->Guest_model->get_today_guests();
+        $data['guests'] = $this->Guest_model->get_featured_guests(); // Ubah ke featured guests jika digunakan di carousel
         $this->load->view('guest/today', $data);
     }
     
