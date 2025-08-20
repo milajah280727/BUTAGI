@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -7,7 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property CI_Input $input
  * @property CI_Loader $load
  */
-
 class chatbotController extends CI_Controller {
 
     public function __construct() {
@@ -22,8 +20,8 @@ class chatbotController extends CI_Controller {
     public function ask() {
         $user_input = $this->input->post('chatInput');
         $response = $this->M_chatbot->getResponse($user_input);
-        echo $response;
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
-
 }
-?>
