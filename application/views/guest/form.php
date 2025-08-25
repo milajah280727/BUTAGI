@@ -6,23 +6,26 @@
         <div class="overlay bg-gradient-primary opacity-80 z-index-n1"></div>
 
         <div class="container">
-            <div class="row justify-content-center">
-                <!-- content -->
-                <div class="col-lg-7" data-aos="fade-up">
-                    <div class="mt-6 mt-lg-4 py-0 py-lg-5 text-center">
-                        <!-- Pesan Error jika login gagal -->
-                        <h1 class="display-4 fw-bold text-white mb-3">Selamat Datang <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
-                        <p class="lead text-light mb-5">Silakan untuk mengisi form Buku Tamu Digital dengan mengklik Icon dibawah ini.</p><br>
-                        <a href="<?php echo base_url('');?>GuestController/guest_form" class="btn btn-lg btn-warning text-dark">
-                            Isi Form Buku Tamu
-                            <svg class="bi bi-chevron-double-right ms-2" width=".8rem" height=".8rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
-                                <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div><!-- end content -->
-            </div>
+
+          <div class="row justify-content-center">
+            <!-- content -->
+            <div class="col-lg-7" data-aos="fade-up">
+              <div class="mt-6 mt-lg-4 py-0 py-lg-5 text-center">
+                <!-- Pesan Error jika login gagal -->
+                <h1 class="display-4 fw-bold text-white mb-3">Selamat Welcome <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
+                <p class="lead text-light mb-5">Silakan untuk mengisi form Buku Tamu Digital dengan mengklik Icon dibawah ini.</p><br>
+                <a href="<?php echo base_url('');?>GuestController/guest_form" class="btn btn-lg btn-warning text-dark">
+                  Isi Form Buku Tamu
+                  <svg class="bi bi-chevron-double-right ms-2" width=".8rem" height=".8rem" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L9.293 8 3.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L13.293 8 7.646 2.354a.5.5 0 010-.708z" clip-rule="evenodd"></path>
+                  </svg>
+                </a>
+              </div>
+            </div><!-- end content -->
+          </div>
+
+
         </div>
 
         <!--  -->
