@@ -67,3 +67,10 @@ $route['admin/export/pdf'] = 'AdminController/export_guests_pdf';
 
 // Chatbot route
 $route['chatbot/test'] = 'chatbotController/index';
+
+
+//qr Route
+$route['guest/remote_form'] = 'guest_controller/remote_form';
+$route['guest/remote_submit'] = 'guest_controller/remote_submit';
+$route['guest/scan_qr'] = 'guest_controller/scan_qr';
+$route['guest/verify_qr'] = 'guest_controller/verify_qr';

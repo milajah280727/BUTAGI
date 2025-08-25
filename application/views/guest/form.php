@@ -53,120 +53,131 @@
         <!-- Styling untuk Carousel -->
         <style>
             .swiper-container {
-                width: 100%;
-                padding: 20px 0;
-            }
+        width: 100%;
+        padding: 20px 0;
+    }
+.swiper-container {
+        width: 100%;
+        padding: 20px 0;
+    }
 
-            .card-guest {
-                border: 1px solid #ddd;
-                border-radius: 20px;
-                overflow: hidden;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                background-color: transparent;
-                height: 350px; /* Adjusted height for larger photo */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
+    .card-guest {
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        background-color: transparent;
+        height: 350px; /* Adjusted height for larger photo */
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        text-align: left;
+    }
 
-            .card-guest .photo-container {
-                background-color: whitesmoke;
-                width: 100%;
-                padding: 20px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
+    .card-guest .photo-container {
+        background-color: whitesmoke;
+        width: 100%;
+        height: 200px; /* Increased height to accommodate larger photo */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden; /* Ensure photo doesn't overflow */
+    }
 
-            .card-guest .photo-container img {
-                width: 150px; /* Enlarged photo size */
-                height: 150px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 2px solid white;
-            }
+    .card-guest .photo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Fill container while maintaining aspect ratio */
+        border: 2px solid white; /* Preserve border */
+    }
 
-            .card-guest .details-container {
-                padding: 1.2rem;
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                background-color: transparent; /* Transparent background */
-            }
+    .card-guest .details-container {
+        padding: 1.2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: transparent; /* Transparent background */
+    }
 
-            .card-guest .details-container h5 {
-                margin: 0;
-                font-weight: bold;
-                font-size: 1.2rem;
-            }
+    .card-guest .details-container h5 {
+        margin: 0;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
 
-            .card-guest .details-container small {
-                color: white;
-            }
+    .card-guest .details-container small {
+        color: white;
+    }
 
-            .card-guest .info {
-                margin-top: 10px;
-                font-size: 0.95rem;
-            }
+    .card-guest .info {
+        margin-top: 10px;
+        font-size: 0.95rem;
+    }
 
-            .card-guest .info div {
-                margin-bottom: 5px;
-            }
+    .card-guest .info div {
+        margin-bottom: 5px;
+    }
 
-            /* Styling Tombol Navigasi Swiper */
-            .swiper-button-next,
-            .swiper-button-prev {
-                color: #333;
-                background-color: rgba(255, 255, 255, 0.8);
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-            }
+    /* Styling Tombol Navigasi Swiper */
+    .swiper-button-next,
+    .swiper-button-prev {
+        color: #333;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
 
-            .swiper-button-next:after,
-            .swiper-button-prev:after {
-                font-size: 20px;
-            }
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 20px;
+    }
 
-            .swiper-pagination {
-                position: relative;
-                margin-top: 20px;
-            }
+    .swiper-pagination {
+        position: relative;
+        margin-top: 20px;
+    }
 
-            .swiper-pagination-bullet {
-                background-color: #333;
-            }
+    .swiper-pagination-bullet {
+        background-color: #333;
+    }
 
-            .swiper-pagination-bullet-active {
-                background-color: #43350cff;
-            }
+    .swiper-pagination-bullet-active {
+        background-color: #43350cff;
+    }
         </style>
 
         <!-- Struktur Carousel -->
         <?php if (!empty($guests)): ?>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <?php $first_item = true; ?>
-                    <?php foreach ($guests as $guest): ?>
-                        <div class="swiper-slide">
-                            <div class="card-guest">
-                                <div class="photo-container">
-                                    <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="details-container">
-                                    <h5><?= $guest->name ?></h5>
-                                    <small><?= date('d M Y', strtotime($guest->created_at)) ?></small>
-                                    <div class="info mt-3">
-                                        <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
-                                    </div>
-                                </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php $first_item = true; ?>
+            <?php foreach ($guests as $guest): ?>
+                <div class="swiper-slide">
+                    <div class="card-guest">
+                        <div class="photo-container">
+                            <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu" class="img-fluid">
+                        </div>
+                        <div class="details-container">
+                            <h5><?= $guest->name ?></h5>
+                            <small><?= date('d M Y H:i', strtotime($guest->created_at)) ?></small>
+                            <div class="info mt-3">
+                                <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
+                                <div><strong>Tanggal Kunjungan:</strong> <?= date('d M Y H:i', strtotime($guest->created_at)) ?></div>
                             </div>
                         </div>
-                        <?php $first_item = false; ?>
-                    <?php endforeach; ?>
+                    </div>
                 </div>
+                <?php $first_item = false; ?>
+            <?php endforeach; ?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
 
                 <!-- Tombol Navigasi -->
                 <div class="swiper-button-prev"></div>
