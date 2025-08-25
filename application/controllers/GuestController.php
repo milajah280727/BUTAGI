@@ -17,7 +17,7 @@ class GuestController extends CI_Controller {
     }
 
     public function index() {
-        $data['guests'] = $this->Guest_model->get_all_guests();
+        $data['guests'] = $this->Guest_model->get_featured_guests(); // Ubah ke featured guests
         $data['rooms'] = $this->Guest_model->get_all_rooms();
         $this->load->view('templates/header');
         $this->load->view('templates/navigator');
@@ -43,15 +43,20 @@ class GuestController extends CI_Controller {
         $photo = $this->input->post('photo');
         $signature = $this->input->post('signature');
     
-        // Decode Base64
+        // Decode Base64 for signature
         $signature_data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signature));
 
         $file_name = uniqid() . '.png';
-        // Path file
-        $file_path = 'assets/uploads/signatures/' . $file_name;
+        // Path file to root assets/uploads/signatures/
+        $signature_path = FCPATH . 'assets/uploads/signatures/' . $file_name;
+
+        // Create directories if not exist
+        if (!is_dir(FCPATH . 'assets/uploads/signatures/')) {
+            mkdir(FCPATH . 'assets/uploads/signatures/', 0755, true);
+        }
 
         // Simpan file
-        file_put_contents($file_path, $signature_data);
+        file_put_contents($signature_path, $signature_data);
 
         // Decode foto dari base64
         if ($photo) {
@@ -59,9 +64,16 @@ class GuestController extends CI_Controller {
             $photo = str_replace(' ', '+', $photo);
             $photoData = base64_decode($photo);
     
-            // Simpan foto ke folder
+            // Simpan foto ke root assets/uploads/
             $photoName = uniqid() . '.png';
-            file_put_contents('assets/uploads/' . $photoName, $photoData);
+            $photo_path = FCPATH . 'assets/uploads/' . $photoName;
+    
+            // Create directories if not exist
+            if (!is_dir(FCPATH . 'assets/uploads/')) {
+                mkdir(FCPATH . 'assets/uploads/', 0755, true);
+            }
+    
+            file_put_contents($photo_path, $photoData);
         }
     
         // Simpan data tamu
@@ -84,7 +96,7 @@ class GuestController extends CI_Controller {
     
 
     public function today() {
-        $data['guests'] = $this->Guest_model->get_today_guests();
+        $data['guests'] = $this->Guest_model->get_featured_guests(); // Ubah ke featured guests jika digunakan di carousel
         $this->load->view('guest/today', $data);
     }
     

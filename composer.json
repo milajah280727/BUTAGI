@@ -13,7 +13,8 @@
 	"require": {
 		"php": ">=5.3.7",
 		"mpdf/mpdf": "*",
-		"guzzlehttp/guzzle": "^7.9"
+		"guzzlehttp/guzzle": "^7.9",
+		"endroid/qr-code": "^6.0"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
