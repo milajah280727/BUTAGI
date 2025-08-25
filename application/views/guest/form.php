@@ -11,7 +11,7 @@
             <div class="col-lg-7" data-aos="fade-up">
               <div class="mt-6 mt-lg-4 py-0 py-lg-5 text-center">
                 <!-- Pesan Error jika login gagal -->
-                <h1 class="display-4 fw-bold text-white mb-3">Selamat Datang <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
+                <h1 class="display-4 fw-bold text-white mb-3">Selamat Welcome <br><span class="fw-light">di SMK Negeri 1 Subang</span></h1><hr><br>
                 <p class="lead text-light mb-5">Silakan untuk mengisi form Buku Tamu Digital dengan mengklik Icon dibawah ini.</p><br>
                 <a href="<?php echo base_url('');?>GuestController/guest_form" class="btn btn-lg btn-warning text-dark">
                   Isi Form Buku Tamu
