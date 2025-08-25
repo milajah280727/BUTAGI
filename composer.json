@@ -15,6 +15,7 @@
 		"mpdf/mpdf": "*",
 		"guzzlehttp/guzzle": "^7.9",
 		"endroid/qr-code": "^6.0"
+
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
@@ -35,4 +36,5 @@
 		"mikey179/vfsstream": "1.6.*",
 		"phpunit/phpunit": "4.* || 5.* || 9.*"
 	}
+	
 }

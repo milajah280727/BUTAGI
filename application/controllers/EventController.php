@@ -6,7 +6,7 @@ class Eventcontroller extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model(['Event_model', 'Event_guest_model']);
-        require_once 'C:/laragon/www/butagi-mainn/vendor/autoload.php'; // Arahkan ke root vendor // Pastikan path ini ada
+        require_once 'C:/laragon/www/BUTAGI/vendor/autoload.php';
     }
 
     public function form($kode_event) {

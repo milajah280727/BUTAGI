@@ -407,665 +407,77 @@
     }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+        <!-- Struktur Carousel -->
+        <?php if (!empty($guests)): ?>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <?php $first_item = true; ?>
+                    <?php foreach ($guests as $guest): ?>
+                        <div class="swiper-slide">
+                            <div class="card-guest">
+                                <div class="photo-container">
+                                    <img src="<?= base_url('assets/uploads/' . $guest->photo) ?>" alt="Foto Tamu" class="img-fluid rounded-circle">
+                                </div>
+                                <div class="details-container">
+                                    <h5><?= $guest->name ?></h5>
+                                    <small><?= date('d M Y', strtotime($guest->created_at)) ?></small>
+                                    <div class="info mt-3">
+                                        <div><strong>Instansi:</strong> <?= $guest->institution ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php $first_item = false; ?>
+                    <?php endforeach; ?>
+                </div>
 
-<script>
-    // Global variables
-    let html5QrCode = null;
-    let isScanning = false;
-    let scanCount = 0;
-    let lastScannedCode = '';
-    let lastScannedTime = 0;
+                <!-- Tombol Navigasi -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
 
-    // Safe DOM element getter with error handling
-    function safeGetElement(id, context = 'Getting element') {
-        const element = document.getElementById(id);
-        if (!element) {
-            debugLog(`⚠️ Warning: Element with ID '${id}' not found in ${context}`);
-            return null;
-        }
-        return element;
-    }
+                <!-- Paginasi -->
+                <div class="swiper-pagination"></div>
+            </div>
+        <?php else: ?>
+            <div class="alert alert-warning">Tidak ada tamu terpilih.</div>
+        <?php endif; ?>
 
-    // Debug function with enhanced error handling
-    function debugLog(message) {
-        let el = document.getElementById("debug-content");
-        if (el) {
-            el.innerHTML += message + "<br>";
-        } else {
-            console.log(message); // fallback ke console
-        }
-    }
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    // Enhanced status update function with safety checks
-    function updateStatus(message, type = 'info') {
-        const statusDiv = safeGetElement('scan-status');
-        if (!statusDiv) {
-            debugLog(`❌ Cannot update status: scan-status element not found`);
-            return;
-        }
-        
-        statusDiv.style.display = 'block';
-        statusDiv.textContent = message;
-        
-        const styles = {
-            success: { bg: '#d4edda', color: '#155724', border: '1px solid #c3e6cb' },
-            error: { bg: '#f8d7da', color: '#721c24', border: '1px solid #f5c6cb' },
-            info: { bg: '#d1ecf1', color: '#0c5460', border: '1px solid #bee5eb' },
-            warning: { bg: '#fff3cd', color: '#856404', border: '1px solid #ffeaa7' }
-        };
-        
-        const style = styles[type] || styles.info;
-        statusDiv.style.backgroundColor = style.bg;
-        statusDiv.style.color = style.color;
-        statusDiv.style.border = style.border;
-        
-        debugLog(`Status: ${message} (${type})`);
-    }
-
-    function hideStatus() {
-        const statusDiv = safeGetElement('scan-status');
-        if (statusDiv) {
-            statusDiv.style.display = 'none';
-        }
-    }
-
-    // Enhanced initialization with better error handling
-    document.addEventListener('DOMContentLoaded', function () {
-        debugLog('=== PAGE LOADED - INITIALIZING QR SCANNER ===');
-        
-        const criticalElements = ['scan-qr', 'scan-status', 'qr-reader-container', 'qr-reader', 'debug-info', 'debug-content'];
-        let missingCritical = [];
-        criticalElements.forEach(id => {
-            if (!document.getElementById(id)) {
-                missingCritical.push(id);
-            }
-        });
-        
-        if (missingCritical.length > 0) {
-            console.error('❌ Missing critical DOM elements:', missingCritical);
-            debugLog('❌ Missing critical elements: ' + missingCritical.join(', '));
-            return;
-        }
-        
-        debugLog('✅ All critical DOM elements found');
-        
-        const optionalElements = ['scan-line'];
-        optionalElements.forEach(id => {
-            if (!document.getElementById(id)) {
-                debugLog(`⚠️ Optional element missing: ${id}`);
-            }
-        });
-        
-        if (navigator.permissions) {
-            navigator.permissions.query({name: 'camera'}).then(function(result) {
-                debugLog('Camera permission: ' + result.state);
-            }).catch(err => {
-                debugLog('Cannot check camera permission: ' + err.message);
+        <!-- Script Inisialisasi Swiper -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const swiper = new Swiper('.swiper-container', {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    loop: true,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                            spaceBetween: 30,
+                        },
+                    },
+                });
             });
-        }
-        
-        const scanButton = safeGetElement('scan-qr');
-        if (scanButton) {
-            scanButton.addEventListener('click', handleScanClick);
-            debugLog('✅ Event listener added to scan button');
-        } else {
-            debugLog('❌ Failed to add event listener: scan button not found');
-        }
-    });
-
-    function handleScanClick() {
-        const button = safeGetElement('scan-qr');
-        if (!button) {
-            debugLog('❌ Scan button not found in handleScanClick');
-            return;
-        }
-        
-        if (isScanning) {
-            stopScanner();
-            return;
-        }
-        
-        startScanner();
-    }
-
-    function startScanner() {
-        const button = safeGetElement('scan-qr');
-        if (!button) {
-            debugLog('❌ Cannot start scanner: scan button not found');
-            return;
-        }
-        
-        debugLog('=== STARTING QR SCANNER ===');
-        updateStatus('Meminta akses kamera...', 'info');
-        button.textContent = 'Menginisialisasi...';
-        button.disabled = true;
-        
-        const qrReaderElement = safeGetElement('qr-reader');
-        if (!qrReaderElement) {
-            debugLog('❌ QR reader element not found');
-            updateStatus('Error: QR reader element tidak ditemukan', 'error');
-            button.textContent = 'Scan QR Tamu';
-            button.disabled = false;
-            return;
-        }
-        
-        try {
-            html5QrCode = new Html5Qrcode("qr-reader");
-            
-            Html5Qrcode.getCameras().then(devices => {
-                debugLog(`Found ${devices.length} camera(s)`);
-                
-                if (devices && devices.length > 0) {
-                    let cameraId = devices[0].id;
-                    let cameraName = devices[0].label || 'Default Camera';
-                    
-                    for (let device of devices) {
-                        const label = device.label.toLowerCase();
-                        if (label.includes('back') || label.includes('rear') || label.includes('environment')) {
-                            cameraId = device.id;
-                            cameraName = device.label;
-                            debugLog(`Using back camera: ${cameraName}`);
-                            break;
-                        }
-                    }
-                    
-                    updateStatus(`Memulai kamera: ${cameraName}`, 'info');
-                    
-                    const config = {
-                        fps: 10,
-                        qrbox: { width: 250, height: 250 },
-                        aspectRatio: 1.0,
-                        disableFlip: false
-                    };
-                    
-                    debugLog('Scanner config: ' + JSON.stringify(config));
-                    
-                    html5QrCode.start(
-                        cameraId,
-                        config,
-                        onScanSuccess,
-                        onScanFailure
-                    ).then(() => {
-                        debugLog('✅ Scanner started successfully');
-                        
-                        const qrReaderContainer = safeGetElement('qr-reader-container');
-                        const scanLine = safeGetElement('scan-line');
-                        
-                        if (qrReaderContainer) {
-                            qrReaderContainer.style.display = 'block';
-                            document.body.classList.add('blur-active');
-                            setTimeout(() => qrReaderContainer.classList.add('active'), 10); // Smooth fade-in
-                        }
-                        if (scanLine) {
-                            scanLine.style.display = 'block';
-                        }
-                        
-                        button.textContent = 'Berhenti Scan';
-                        button.className = 'btn btn-danger';
-                        button.disabled = false;
-                        isScanning = true;
-                        
-                        updateStatus('Scanner aktif - arahkan QR code ke kamera', 'success');
-                        setTimeout(() => {
-                            if (isScanning) hideStatus();
-                        }, 3000);
-                        
-                    }).catch(err => {
-                        debugLog('❌ Error starting scanner: ' + err.message);
-                        updateStatus('Gagal memulai scanner: ' + err.message, 'error');
-                        
-                        button.textContent = 'Scan QR Tamu';
-                        button.className = 'btn btn-secondary';
-                        button.disabled = false;
-                        
-                        html5QrCode = null;
-                    });
-                    
-                } else {
-                    debugLog('No cameras found');
-                    updateStatus('Tidak ada kamera yang ditemukan', 'error');
-                    button.textContent = 'Scan QR Tamu';
-                    button.disabled = false;
-                    html5QrCode = null;
-                }
-                
-            }).catch(err => {
-                debugLog('❌ Error accessing cameras: ' + err.message);
-                updateStatus('Tidak dapat mengakses kamera: ' + err.message, 'error');
-                
-                button.textContent = 'Scan QR Tamu';
-                button.disabled = false;
-                html5QrCode = null;
-            });
-            
-        } catch (err) {
-            debugLog('❌ Exception in startScanner: ' + err.message);
-            updateStatus('Error dalam inisialisasi: ' + err.message, 'error');
-            
-            button.textContent = 'Scan QR Tamu';
-            button.disabled = false;
-            html5QrCode = null;
-        }
-    }
-
-    function stopScanner() {
-        const button = safeGetElement('scan-qr');
-        if (!button) {
-            debugLog('❌ Cannot stop scanner: scan button not found');
-            return;
-        }
-        
-        debugLog('=== STOPPING SCANNER ===');
-        updateStatus('Menghentikan scanner...', 'info');
-        
-        if (html5QrCode) {
-            html5QrCode.stop().then(() => {
-                debugLog('✅ Scanner stopped successfully');
-                
-                const qrReaderContainer = safeGetElement('qr-reader-container');
-                const scanLine = safeGetElement('scan-line');
-                
-                if (qrReaderContainer) {
-                    qrReaderContainer.classList.remove('active');
-                    document.body.classList.remove('blur-active');
-                    setTimeout(() => qrReaderContainer.style.display = 'none', 300); // Smooth fade-out
-                }
-                if (scanLine) {
-                    scanLine.style.display = 'none';
-                }
-                
-                button.textContent = 'Scan QR Tamu';
-                button.className = 'btn btn-secondary';
-                button.disabled = false;
-                isScanning = false;
-                hideStatus();
-                
-                html5QrCode = null;
-                
-            }).catch(err => {
-                debugLog('❌ Error stopping scanner: ' + err.message);
-                updateStatus('Error menghentikan scanner: ' + err.message, 'error');
-                
-                const qrReaderContainer = safeGetElement('qr-reader-container');
-                const scanLine = safeGetElement('scan-line');
-                
-                if (qrReaderContainer) {
-                    qrReaderContainer.classList.remove('active');
-                    document.body.classList.remove('blur-active');
-                    setTimeout(() => qrReaderContainer.style.display = 'none', 300);
-                }
-                if (scanLine) {
-                    scanLine.style.display = 'none';
-                }
-                
-                button.textContent = 'Scan QR Tamu';
-                button.className = 'btn btn-secondary';
-                button.disabled = false;
-                isScanning = false;
-                html5QrCode = null;
-            });
-        } else {
-            debugLog('⚠️ No scanner instance to stop');
-            const qrReaderContainer = safeGetElement('qr-reader-container');
-            const scanLine = safeGetElement('scan-line');
-            
-            if (qrReaderContainer) {
-                qrReaderContainer.classList.remove('active');
-                document.body.classList.remove('blur-active');
-                setTimeout(() => qrReaderContainer.style.display = 'none', 300);
-            }
-            if (scanLine) {
-                scanLine.style.display = 'none';
-            }
-            
-            button.textContent = 'Scan QR Tamu';
-            button.className = 'btn btn-secondary';
-            button.disabled = false;
-            isScanning = false;
-            hideStatus();
-        }
-    }
-
-    function onScanSuccess(decodedText, decodedResult) {
-        const currentTime = Date.now();
-        
-        if (decodedText === lastScannedCode && (currentTime - lastScannedTime) < 2000) {
-            debugLog('Duplicate scan ignored: ' + decodedText);
-            return;
-        }
-        
-        scanCount++;
-        lastScannedCode = decodedText;
-        lastScannedTime = currentTime;
-        
-        debugLog(`=== QR CODE DETECTED #${scanCount} ===`);
-        debugLog('QR Content: ' + decodedText);
-        debugLog('Scan Result: ' + JSON.stringify(decodedResult));
-        
-        updateStatus('QR Code terdeteksi! Memproses...', 'success');
-        
-        if (html5QrCode) {
-            html5QrCode.stop().then(() => {
-                debugLog('✅ Scanner stopped after successful scan');
-                
-                const qrReaderContainer = safeGetElement('qr-reader-container');
-                const scanLine = safeGetElement('scan-line');
-                const button = safeGetElement('scan-qr');
-                
-                if (qrReaderContainer) {
-                    qrReaderContainer.classList.remove('active');
-                    document.body.classList.remove('blur-active');
-                    setTimeout(() => qrReaderContainer.style.display = 'none', 300);
-                }
-                if (scanLine) {
-                    scanLine.style.display = 'none';
-                }
-                if (button) {
-                    button.textContent = 'Scan QR Tamu';
-                    button.className = 'btn btn-secondary';
-                    button.disabled = false;
-                }
-                
-                isScanning = false;
-                html5QrCode = null;
-                
-                processQRCode(decodedText);
-                
-            }).catch(err => {
-                debugLog('❌ Error stopping after scan: ' + err.message);
-                updateStatus('Error menghentikan setelah scan: ' + err.message, 'error');
-                
-                const qrReaderContainer = safeGetElement('qr-reader-container');
-                const scanLine = safeGetElement('scan-line');
-                const button = safeGetElement('scan-qr');
-                
-                if (qrReaderContainer) {
-                    qrReaderContainer.classList.remove('active');
-                    document.body.classList.remove('blur-active');
-                    setTimeout(() => qrReaderContainer.style.display = 'none', 300);
-                }
-                if (scanLine) {
-                    scanLine.style.display = 'none';
-                }
-                if (button) {
-                    button.textContent = 'Scan QR Tamu';
-                    button.className = 'btn btn-secondary';
-                    button.disabled = false;
-                }
-                
-                isScanning = false;
-                html5QrCode = null;
-                
-                processQRCode(decodedText);
-            }).catch(err => {
-                debugLog('❌ Error stopping after scan: ' + err.message);
-                updateStatus('Error menghentikan setelah scan: ' + err.message, 'error');
-                
-                const qrReaderContainer = safeGetElement('qr-reader-container');
-                const scanLine = safeGetElement('scan-line');
-                const button = safeGetElement('scan-qr');
-                
-                if (qrReaderContainer) {
-                    qrReaderContainer.classList.remove('active');
-                    document.body.classList.remove('blur-active');
-                    setTimeout(() => qrReaderContainer.style.display = 'none', 300);
-                }
-                if (scanLine) {
-                    scanLine.style.display = 'none';
-                }
-                if (button) {
-                    button.textContent = 'Scan QR Tamu';
-                    button.className = 'btn btn-secondary';
-                    button.disabled = false;
-                }
-                
-                isScanning = false;
-                html5QrCode = null;
-                
-                processQRCode(decodedText);
-            });
-        } else {
-            debugLog('⚠️ No scanner instance to stop, processing QR directly');
-            isScanning = false;
-            processQRCode(decodedText);
-        }
-    }
-
-    // Scan failure callback (normal during scanning)
-    function onScanFailure(error) {
-        // This is called when no QR code is found - it's normal
-        // We don't need to log every failure as it happens frequently
-    }
-
-    // Enhanced process QR Code function with proper URL handling
-    function processQRCode(qrContent) {
-        debugLog('=== PROCESSING QR CODE ===');
-        debugLog('QR Content: ' + qrContent);
-        
-        updateStatus('Mengirim data ke server...', 'info');
-        
-        // Extract ID from URL if it's a full URL
-        let processedContent = qrContent;
-        if (qrContent.includes('http://localhost/butagi-mainn/event/scan/')) {
-            const parts = qrContent.split('/');
-            processedContent = parts[parts.length - 1]; // Get the ID part
-            debugLog('Extracted ID from URL: ' + processedContent);
-        } else if (qrContent.includes('http://butagi.test/event/scan/')) {
-            const parts = qrContent.split('/');
-            processedContent = parts[parts.length - 1]; // Get the ID part
-            debugLog('Extracted ID from URL: ' + processedContent);
-        }
-        
-        // Build URL dengan struktur CodeIgniter yang benar
-        const baseUrl = window.location.origin;
-        
-        let possibleUrls = [
-            `http://localhost/butagi-mainn/event/scan?qr=${encodeURIComponent(processedContent)}`,
-            `${baseUrl}/butagi-mainn/event/scan?qr=${encodeURIComponent(processedContent)}`,
-            `${baseUrl}/butagi-mainn/index.php/event/scan?qr=${encodeURIComponent(processedContent)}`,
-            `http://localhost/butagi-mainn/index.php/event/scan?qr=${encodeURIComponent(processedContent)}`,
-            `http://butagi.test/event/scan?qr=${encodeURIComponent(processedContent)}`,
-            `http://butagi.test/index.php/event/scan?qr=${encodeURIComponent(processedContent)}`
-        ];
-        
-        debugLog('Trying multiple URL patterns...');
-        
-        function tryUrls(urls, index = 0) {
-            if (index >= urls.length) {
-                debugLog('❌ All URL patterns failed');
-                updateStatus('Error: Tidak dapat menemukan endpoint server', 'error');
-                return;
-            }
-            
-            const url = urls[index];
-            debugLog(`Trying URL ${index + 1}/${urls.length}: ${url}`);
-            
-            fetch(url, { 
-                method: 'GET',
-                cache: 'no-store',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                debugLog(`URL ${index + 1} - Response status: ${response.status}`);
-                
-                if (response.status === 404) {
-                    debugLog(`URL ${index + 1} returned 404, trying next...`);
-                    tryUrls(urls, index + 1);
-                    return null;
-                }
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                debugLog(`✅ URL ${index + 1} successful: ${url}`);
-                return response.text();
-            })
-            .then(text => {
-                if (text === null) return;
-                
-                debugLog('Raw response: ' + text.substring(0, 500) + (text.length > 500 ? '...' : ''));
-                
-                if (text.trim().toLowerCase().startsWith('<!doctype html') || text.trim().toLowerCase().startsWith('<html')) {
-                    debugLog(`URL ${index + 1} returned HTML page (likely error page), trying next...`);
-                    tryUrls(urls, index + 1);
-                    return;
-                }
-                
-                let data;
-                try {
-                    data = JSON.parse(text);
-                } catch (e) {
-                    debugLog('JSON parse error: ' + e.message);
-                    debugLog('Response appears to be: ' + (text.includes('<html') ? 'HTML page' : 'Invalid JSON'));
-                    
-                    if (index === urls.length - 1) {
-                        throw new Error('Invalid JSON response from server. All URLs tried. Last response was: ' + text.substring(0, 200));
-                    } else {
-                        tryUrls(urls, index + 1);
-                        return;
-                    }
-                }
-                
-                debugLog('Parsed response: ' + JSON.stringify(data));
-                hideStatus();
-                
-                if (data.error) {
-                    updateStatus('Error: ' + data.error, 'error');
-                } else if (data.success && data.nama) {
-                    updateStatus('Berhasil: ' + data.nama, 'success');
-                    Swal.fire({
-                        icon: 'success',
-                        title: data.nama + ' - Terima kasih atas kunjungan Anda pertemuan ini orang tua murid di SMKN 1 Subang',
-                        imageUrl: "<?= base_url('assets/img/thanks.png') ?>",
-                        imageWidth: 200,
-                        imageHeight: 200,
-                        showConfirmButton: false,
-                        timer: 5000
-                    }).then(() => {
-                        window.location.href = '<?= base_url() ?>';
-                    });
-                } else if (data.success) {
-                    updateStatus('Berhasil diproses', 'success');
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Terima kasih atas kunjungan Anda di SMKN 1 Subang',
-                        imageUrl: "<?= base_url('assets/img/thanks.png') ?>",
-                        imageWidth: 200,
-                        imageHeight: 200,
-                        showConfirmButton: false,
-                        timer: 5000
-                    }).then(() => {
-                        window.location.href = '<?= base_url() ?>';
-                    });
-                } else {
-                    updateStatus('Response tidak valid', 'warning');
-                }
-            })
-            .catch(error => {
-                debugLog(`URL ${index + 1} - Fetch error: ${error.message}`);
-                
-                if (error.message.includes('404')) {
-                    tryUrls(urls, index + 1);
-                } else {
-                    updateStatus('Terjadi kesalahan: ' + error.message, 'error');
-                }
-            });
-        }
-        
-        tryUrls(possibleUrls);
-    }
-
-    // Enhanced test function - HANYA UNTUK DEBUGGING
-    function testQRProcess() {
-        debugLog('=== TESTING QR PROCESS (DEBUGGING ONLY) ===');
-        updateStatus('Testing QR process dengan ID dummy...', 'warning');
-        
-        if (!confirm('⚠️ Ini adalah fungsi test untuk debugging.\nApakah Anda yakin ingin melanjutkan?\n\n(Tombol ini harus dihapus setelah sistem bekerja dengan baik)')) {
-            return;
-        }
-        
-        processQRCode('3'); // Test dengan ID langsung
-    }
-
-    // Function untuk test koneksi ke berbagai endpoint
-    function testEndpoints() {
-        debugLog('=== TESTING ALL ENDPOINTS ===');
-        
-        const testUrls = [
-            'http://localhost/BUTAGI/event/scan?qr=3',
-            'http://localhost/BUTAGI/index.php/event/scan?qr=3',
-            window.location.origin + '/BUTAGI/event/scan?qr=3',
-            window.location.origin + '/BUTAGI/index.php/event/scan?qr=3',
-            'http://butagi.test/event/scan?qr=3'
-        ];
-        
-        testUrls.forEach((url, index) => {
-            setTimeout(() => {
-                fetch(url)
-                    .then(response => {
-                        debugLog(`Test URL ${index + 1}: ${response.status} - ${url}`);
-                        return response.text();
-                    })
-                    .then(text => {
-                        debugLog(`Test URL ${index + 1} Response: ${text.substring(0, 100)}...`);
-                    })
-                    .catch(err => {
-                        debugLog(`Test URL ${index + 1}: ERROR - ${err.message} - ${url}`);
-                    });
-            }, index * 500);
-        });
-    }
-
-    // Function untuk notifikasi kustom (opsional, tetap ada)
-    function showNotification(message, type) {
-        const notification = safeGetElement('custom-notification');
-        const messageDiv = safeGetElement('notification-message');
-        if (notification && messageDiv) {
-            notification.className = `notification ${type}`;
-            messageDiv.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(hideNotification, 4000);
-        }
-    }
-
-    function hideNotification() {
-        const notification = safeGetElement('custom-notification');
-        if (notification) {
-            notification.style.display = 'none';
-        }
-    }
-
-    // Inisialisasi Swiper
-    const swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 30,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-            },
-        },
-    });
-</script>
+        </script>
+    </div>
+</div>
+<!-- Akhir Contact -->
+</main>
