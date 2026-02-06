@@ -61,12 +61,21 @@ $route['superadmin/dashboard'] = 'superadmin/index'; // Sesuaikan dengan method 
 $route['superadmin/kelola_tamu'] = 'superadmin/manage_guests';
 $route['superadmin/kelola_admin'] = 'superadmin/manage_admins';
 $route['superadmin/kelola_ruangan'] = 'superadmin/manage_rooms';
-$route['superadmin/kelola_tamu_terpilih'] = 'superadmin/manage_featured_guests'; // Rute baru
+$route['superadmin/kelola_tamu_terpilih'] = 'superadmin/manage_featured_guests';
+//   qr system 
+$route['event/form/(:any)'] = 'EventController/form/$1'; // Perbaiki ke lowercase
+$route['event/submit_form'] = 'EventController/submit_form';
+$route['event/scan'] = 'EventController/scan';
+$route['superadmin/manage_event'] = 'superadmin/manage_events'; // Perbaiki typo view
+$route['superadmin/create_event'] = 'superadmin/create_event';
+$route['superadmin/manage_guest_event'] = 'guestEventController/index';
 
 $route['admin/export/pdf'] = 'AdminController/export_guests_pdf';
 
 // Chatbot route
 $route['chatbot/test'] = 'chatbotController/index';
+
+$route['guestController/form'] = 'GuestController/guest_form';
 
 
 //qr Route

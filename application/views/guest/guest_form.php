@@ -4,302 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Buku Tamu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        .section {
-            position: relative;
-        }
-        .jarallax {
-            background-size: cover;
-            background-position: center;
-        }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .bg-primary {
-            background-color: #007bff;
-        }
-        .opacity-90 {
-            opacity: 0.9;
-        }
-        .z-index-n1 {
-            z-index: -1;
-        }
-        .bg-light-dark {
-            background-color: #e9ecef;
-        }
-        .border-top {
-            border-top: 1px solid #dee2e6;
-        }
-        .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -15px;
-        }
-        .col-lg-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            padding: 0 15px;
-        }
-        .mt-n7 {
-            margin-top: -5rem;
-        }
-        .p-5 {
-            padding: 3rem;
-        }
-        .rounded-3 {
-            border-radius: 0.3rem;
-        }
-        .bg-body {
-            background-color: #fff;
-        }
-        .shadow-sm {
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
-        .card {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
-            animation: fadeInScale 0.5s ease-in-out;
-        }
-        .card.hidden {
-            display: none;
-        }
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        .card-body {
-            padding: 1.25rem;
-        }
-        #cameraPreview .card-body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .h3 {
-            font-size: 1.75rem;
-        }
-        .mb-4 {
-            margin-bottom: 1.5rem;
-        }
-        .divider {
-            width: 100px;
-            height: 3px;
-        }
-        .bg-warning {
-            background-color: #ffc107;
-        }
-        .border-warning {
-            border-color: #ffc107;
-        }
-        .my-4 {
-            margin: 1.5rem 0;
-        }
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .img-fluid {
-            max-width: 100%;
-            height: auto;
-        }
-        .rounded {
-            border-radius: 0.25rem;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-control {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .invalid-feedback {
-            display: none;
-            color: #dc3545;
-            font-size: 0.875rem;
-        }
-        .is-invalid ~ .invalid-feedback {
-            display: block;
-        }
-        .alert {
-            padding: 1rem;
-            border-radius: 0.25rem;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-outline-secondary {
-            border: 1px solid #6c757d;
-            color: #6c757d;
-            background-color: transparent;
-        }
-        .btn-outline-secondary:hover {
-            background-color: #6c757d;
-            color: white;
-        }
-        .btn-outline-primary {
-            border: 1px solid #007bff;
-            color: #007bff;
-            background-color: transparent;
-        }
-        .btn-outline-primary:hover {
-            background-color: #007bff;
-            color: white;
-        }
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-        .mt-3 {
-            margin-top: 1rem;
-        }
-        #take-photo {
-            margin-top: 1rem;
-        }
-        .d-flex {
-            display: flex;
-        }
-        .flex-wrap {
-            flex-wrap: wrap;
-        }
-        .gap-2 {
-            gap: 0.5rem;
-        }
-        .d-grid {
-            display: grid;
-        }
-        .py-6 {
-            padding-top: 4rem;
-            padding-bottom: 4rem;
-        }
-        .py-md-7 {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
-        }
-        .pb-5 {
-            padding-bottom: 3rem;
-        }
-        .pb-md-6 {
-            padding-bottom: 4rem;
-        }
-        .px-5 {
-            padding-left: 3rem;
-            padding-right: 3rem;
-        }
-        #video, #photo {
-            max-width: 300px;
-        }
-        #admin-buttons .btn {
-            margin: 5px;
-        }
-        #micIndicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: red;
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: none;
-        }
-        #keyboard {
-            background-color: #f8f9fa;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 8px;
-            margin-top: 1rem;
-            display: none;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .keyboard-row {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 5px;
-        }
-        .key {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 16px;
-            min-width: 40px;
-            margin: 0 2px;
-        }
-        .key:hover {
-            background-color: #e0e0e0;
-        }
-        .key.special {
-            background-color: #6c757d;
-            color: white;
-            min-width: 60px;
-        }
-        .key.special:hover {
-            background-color: #5a6268;
-        }
-        .key.space {
-            min-width: 200px;
-        }
-        .keyboard-row.offset-1 {
-            margin-left: 20px;
-        }
-        .keyboard-row.offset-2 {
-            margin-left: 40px;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; }
+        .section { position: relative; }
+        .jarallax { background-size: cover; background-position: center; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .bg-primary { background-color: #007bff; }
+        .opacity-90 { opacity: 0.9; }
+        .z-index-n1 { z-index: -1; }
+        .bg-light-dark { background-color: #e9ecef; }
+        .border-top { border-top: 1px solid #dee2e6; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 15px; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .col-lg-12 { flex: 0 0 100%; max-width: 100%; padding: 0 15px; }
+        .mt-n7 { margin-top: -5rem; }
+        .p-5 { padding: 3rem; }
+        .rounded-3 { border-radius: 0.3rem; }
+        .bg-body { background-color: #fff; }
+        .shadow-sm { box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075); }
+        .card { background-color: #fff; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 1.5rem; border-radius: 8px; animation: fadeInScale 0.5s ease-in-out; }
+        .card.hidden { display: none; }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .card-body { padding: 1.25rem; }
+        #cameraPreview .card-body { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .text-center { text-align: center; }
+        .h3 { font-size: 1.75rem; }
+        .mb-4 { margin-bottom: 1.5rem; }
+        .divider { width: 100px; height: 3px; }
+        .bg-warning { background-color: #ffc107; }
+        .border-warning { border-color: #ffc107; }
+        .my-4 { margin: 1.5rem 0; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .img-fluid { max-width: 100%; height: auto; }
+        .rounded { border-radius: 0.25rem; }
+        .form-label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-control { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .invalid-feedback { display: none; color: #dc3545; font-size: 0.875rem; }
+        .is-invalid ~ .invalid-feedback { display: block; }
+        .alert { padding: 1rem; border-radius: 0.25rem; }
+        .alert-danger { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .btn { padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-danger { background-color: #dc3545; color: white; }
+        .btn-outline-secondary { border: 1px solid #6c757d; color: #6c757d; background-color: transparent; }
+        .btn-outline-secondary:hover { background-color: #6c757d; color: white; }
+        .mt-2 { margin-top: 0.5rem; }
+        #take-photo { margin-top: 1rem; }
+        .d-flex { display: flex; }
+        .flex-wrap { flex-wrap: wrap; }
+        .gap-2 { gap: 0.5rem; }
+        .d-grid { display: grid; }
+        .py-6 { padding-top: 4rem; padding-bottom: 4rem; }
+        .py-md-7 { padding-top: 5rem; padding-bottom: 5rem; }
+        .pb-5 { padding-bottom: 3rem; }
+        .pb-md-6 { padding-bottom: 4rem; }
+        .px-5 { padding-left: 3rem; padding-right: 3rem; }
+        #video, #photo { max-width: 300px; }
+        #micIndicator { width: 20px; height: 20px; border-radius: 50%; background-color: red; position: fixed; top: 10px; right: 10px; z-index: 1000; display: none; }
+        #keyboard { background-color: #f8f9fa; border: 1px solid #ccc; padding: 10px; border-radius: 8px; margin-top: 1rem; display: none; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .keyboard-row { display: flex; justify-content: center; margin-bottom: 5px; }
+        .key { background-color: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 10px; text-align: center; cursor: pointer; font-size: 16px; min-width: 40px; margin: 0 2px; }
+        .key:hover { background-color: #e0e0e0; }
+        .key.special { background-color: #6c757d; color: white; min-width: 60px; }
+        .key.special:hover { background-color: #5a6268; }
+        .key.space { min-width: 200px; }
+        .keyboard-row.offset-1 { margin-left: 20px; }
+        .keyboard-row.offset-2 { margin-left: 40px; }
     </style>
 </head>
 <body>
 <main id="content">
     <div id="hero" class="section py-6 py-md-7 jarallax overflow-hidden">
-        <img class="jarallax-img" src="<?php echo base_url('assets/')?>src/img-min/bg/bg-planet.jpg" alt="title">
+        <img class="jarallax-img" src="<?php echo base_url('assets/src/img-min/bg/bg-planet.jpg'); ?>" alt="Background">
         <div class="overlay bg-primary opacity-90 z-index-n1"></div>
     </div>
     <div id="login-area" class="section pb-5 pb-md-6 border-top bg-light-dark">
@@ -311,9 +88,8 @@
                             <div id="micIndicator"></div>
                             <h1 class="h3 mb-4 text-center">Informasi Tamu</h1>
                             <hr class="divider my-4 mx-auto bg-warning border-warning">
-
-                            <form id="voiceForm" class="needs-validation" method="POST" action="<?= site_url('GuestController/submit_form'); ?>" enctype="multipart/form-data">
-                                <!-- Preview Kamera -->
+                            <form id="voiceForm" class="needs-validation" method="POST" action="<?php echo site_url('GuestController/submit_form'); ?>" enctype="multipart/form-data">
+                                <!-- Camera Preview -->
                                 <div id="cameraPreview" class="card mb-4">
                                     <div class="card-body">
                                         <h5 class="card-title">Preview Kamera</h5>
@@ -330,7 +106,7 @@
                                 <input type="hidden" id="photoInput" name="photo" required>
                                 <p id="photoError" class="alert alert-danger text-center" style="display: none;">Foto wajib diambil!</p>
 
-                                <!-- Card Input -->
+                                <!-- Form Inputs -->
                                 <div class="card mb-4 hidden" id="card-name">
                                     <div class="card-body">
                                         <label for="name" class="form-label">Nama Lengkap:</label>
@@ -360,22 +136,43 @@
                                 </div>
                                 <div class="card mb-4 hidden" id="card-admin">
                                     <div class="card-body">
-                                        <label class="form-label">Bertemu Dengan Admin atau Staf Sekolah:</label>
-                                        <div id="admin-buttons" class="d-flex flex-wrap gap-2">
-                                            <?php foreach ($admins as $admin): ?>
-                                                <button type="button" class="btn btn-outline-primary" data-admin-id="<?= $this->security->xss_clean($admin->id) ?>" data-room="<?= $this->security->xss_clean($admin->room_name ?? '') ?>">
-                                                    <?= $this->security->xss_clean($admin->admin_name) ?>
-                                                </button>
+                                        <label class="form-label">Kategori Jabatan:</label>
+                                        <select id="kategori_jabatan" class="form-control" required>
+                                            <option value="">-- Pilih Kategori Jabatan --</option>
+                                            <?php foreach ($jabatan_kategori as $kategori): ?>
+                                                <option value="<?php echo $kategori->id; ?>"><?php echo $kategori->nama_kategori; ?></option>
                                             <?php endforeach; ?>
-                                        </div>
-                                        <input type="hidden" id="admin_id" name="user_id" required>
-                                        <div class="invalid-feedback">Silakan pilih admin atau staf sekolah.</div>
-                                        <button type="button" class="btn btn-primary mt-2 next-step" data-next="card-purpose">Lanjut</button>
+                                        </select>
                                     </div>
                                     <div class="card-body">
-                                        <label for="room_name" class="form-label">Ruangan:</label>
-                                        <input type="text" id="room_name" name="room_name" class="form-control" readonly>
+                                        <label class="form-label">Jabatan:</label>
+                                        <select id="jabatan" class="form-control" required>
+                                            <option value="">-- Pilih Jabatan --</option>
+                                        </select>
                                     </div>
+                                    <div class="card-body" id="jurusan-box" style="display:none;">
+                                        <label class="form-label">Jurusan:</label>
+                                        <select id="jurusan" class="form-control">
+                                            <option value="">-- Pilih Jurusan --</option>
+                                        </select>
+                                    </div>
+                                    <div class="card-body" id="kelas-box" style="display:none;">
+                                        <label class="form-label">Kelas:</label>
+                                        <select id="kelas" class="form-control">
+                                            <option value="">-- Pilih Kelas --</option>
+                                        </select>
+                                    </div>
+                                    <div class="card-body" id="user-box" style="display:none;">
+                                        <label class="form-label">Nama:</label>
+                                        <select id="user" name="user_id" class="form-control" required>
+                                            <option value="">-- Pilih Nama --</option>
+                                        </select>
+                                    </div>
+                                    <div class="card-body" id="room-box" style="display:none;">
+                                        <label class="form-label">Ruangan:</label>
+                                        <input type="text" id="room" class="form-control" readonly>
+                                    </div>
+                                    <button type="button" class="btn btn-primary mt-2 next-step" data-next="card-purpose">Lanjut</button>
                                 </div>
                                 <div class="card mb-4 hidden" id="card-purpose">
                                     <div class="card-body">
@@ -400,7 +197,7 @@
                                 <div id="keyboard"></div>
                                 <div class="d-grid mt-4">
                                     <button type="submit" id="submit-form" class="btn btn-primary hidden">Submit Form</button>
-                                    <a href="<?php echo base_url('')?>" class="btn btn-secondary">
+                                    <a href="<?php echo base_url(''); ?>" class="btn btn-secondary">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" viewBox="0 0 512 512">
                                             <polyline points="328 112 184 256 328 400" style="fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"/>
                                         </svg> Kembali ke halaman utama
@@ -413,16 +210,14 @@
             </div>
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/jarallax@2.0.0/dist/jarallax.min.js"></script>
     <script>
+        jarallax(document.querySelectorAll('.jarallax'), { speed: 0.2 });
         const canvas = document.getElementById('signature-canvas');
         const signaturePad = new SignaturePad(canvas);
-        document.getElementById('clear-signature').addEventListener('click', () => {
-            signaturePad.clear();
-        });
+        document.getElementById('clear-signature').addEventListener('click', () => signaturePad.clear());
 
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         let recognition;
@@ -467,7 +262,7 @@
 
         function createKeyboard() {
             const keyboard = document.getElementById('keyboard');
-            keyboard.innerHTML = ''; // Bersihkan keyboard sebelumnya
+            keyboard.innerHTML = '';
             const layout = isSymbolMode ? symbolLayout : qwertyLayout;
             layout.forEach((row, index) => {
                 const rowDiv = document.createElement('div');
@@ -484,7 +279,7 @@
         }
 
         function updateKeyboard() {
-            createKeyboard(); // Panggil ulang createKeyboard untuk memperbarui tampilan
+            createKeyboard();
         }
 
         function handleKeyPress(key) {
@@ -492,9 +287,9 @@
             const input = currentInput;
             if (key === 'shift') {
                 if (!isSymbolMode) {
-                    isShiftActive = !isShiftActive; // Toggle huruf besar/kecil
+                    isShiftActive = !isShiftActive;
                 } else {
-                    isSymbolMode = false; // Kembali ke huruf kecil dari simbol
+                    isSymbolMode = false;
                     isShiftActive = false;
                 }
                 updateKeyboard();
@@ -504,24 +299,23 @@
                 input.value += ' ';
             } else if (key === 'enter') {
                 hideKeyboard();
-                input.dispatchEvent(new Event('change')); // Trigger validasi
+                input.dispatchEvent(new Event('change'));
             } else {
                 const char = isShiftActive && !isSymbolMode && key.length === 1 && /[a-z]/.test(key) ? key.toUpperCase() : key;
                 input.value += char;
-                // Reset simbol setelah input angka/simbol, kecuali untuk huruf
                 if (isSymbolMode && key !== 'space' && key !== 'backspace' && key !== 'enter') {
                     isSymbolMode = false;
                     isShiftActive = false;
                     updateKeyboard();
                 }
             }
-            input.focus(); // Pertahankan fokus pada input
+            input.focus();
         }
 
         function showKeyboard(input) {
             currentInput = input;
             document.getElementById('keyboard').style.display = 'block';
-            createKeyboard(); // Pastikan keyboard dibuat ulang dengan state terkini
+            createKeyboard();
             input.focus();
         }
 
@@ -532,7 +326,6 @@
             isSymbolMode = false;
         }
 
-        // Deteksi klik di luar input dan keyboard
         document.addEventListener('click', (event) => {
             const keyboard = document.getElementById('keyboard');
             const inputs = ['name', 'phone', 'institution', 'purpose'].map(id => document.getElementById(id));
@@ -669,13 +462,13 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Terima kasih atas kunjungan Anda di SMKN 1 Subang',
-                        imageUrl: "<?= base_url('assets/img/thanks.png') ?>",
+                        imageUrl: "<?php echo base_url('assets/img/thanks.png'); ?>",
                         imageWidth: 200,
                         imageHeight: 200,
                         showConfirmButton: false,
                         timer: 5000
                     }).then(() => {
-                        window.location.href = '<?= base_url() ?>';
+                        window.location.href = '<?php echo base_url(); ?>';
                     });
                 },
                 error: function() {
@@ -705,8 +498,8 @@
                 document.getElementById('institution').classList.add('is-invalid');
                 return;
             }
-            if (currentCardId.includes('admin') && !document.getElementById('admin_id').value) {
-                document.getElementById('admin_id').classList.add('is-invalid');
+            if (currentCardId.includes('admin') && !document.getElementById('user').value) {
+                document.getElementById('user').classList.add('is-invalid');
                 return;
             }
             if (currentCardId.includes('purpose') && !document.getElementById('purpose').value) {
@@ -721,42 +514,21 @@
         }
 
         $(document).ready(function() {
-            // Sembunyikan semua card kecuali cameraPreview
             ['card-name', 'card-phone', 'card-institution', 'card-admin', 'card-purpose', 'card-signature'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
-            // Start kamera
             startCamera();
             document.getElementById('take-photo').addEventListener('click', takePhoto);
-            // Submit form
             document.getElementById('voiceForm').addEventListener('submit', submitForm);
-            // Admin buttons
-            document.querySelectorAll('#admin-buttons .btn').forEach(button => {
-                button.onclick = () => {
-                    const adminId = button.getAttribute('data-admin-id');
-                    const roomName = button.getAttribute('data-room');
-                    document.getElementById('admin_id').value = adminId;
-                    document.getElementById('room_name').value = roomName;
-                    document.getElementById('admin_id').classList.remove('is-invalid');
-                };
-            });
-            // Keyboard virtual
             createKeyboard();
             ['name', 'phone', 'institution', 'purpose'].forEach(id => {
                 const input = document.getElementById(id);
                 input.addEventListener('focus', () => showKeyboard(input));
-                input.addEventListener('change', () => {
-                    input.classList.remove('is-invalid');
-                });
+                input.addEventListener('change', () => input.classList.remove('is-invalid'));
             });
-            // Voice input dengan pemandu
             document.querySelectorAll('.use-voice').forEach(button => {
-                button.addEventListener('click', () => {
-                    const field = button.getAttribute('data-field');
-                    startVoiceInputForField(field);
-                });
+                button.addEventListener('click', () => startVoiceInputForField(button.getAttribute('data-field')));
             });
-            // Tombol Lanjut
             document.querySelectorAll('.next-step').forEach(button => {
                 button.addEventListener('click', () => {
                     const currentCardId = button.closest('.card').id;
@@ -764,8 +536,111 @@
                     showNextCard(currentCardId, nextCardId);
                 });
             });
+
+            $("#kategori_jabatan").change(function() {
+                let kategoriId = $(this).val();
+                $("#jabatan").html('<option value="">-- Pilih Jabatan --</option>');
+                $("#jurusan-box, #kelas-box, #user-box, #room-box").hide();
+                $("#jurusan, #kelas, #user").html('<option value="">-- Pilih --</option>');
+                if (kategoriId) {
+                    $.getJSON("<?php echo site_url('GuestController/getJabatanByKategori/'); ?>" + kategoriId, function(data) {
+                        let options = '<option value="">-- Pilih Jabatan --</option>';
+                        if (data.length === 0) options += '<option value="">Tidak ada jabatan tersedia</option>';
+                        $.each(data, function(i, jabatan) {
+                            options += `<option value="${jabatan.id}">${jabatan.nama_jabatan}</option>`;
+                        });
+                        $("#jabatan").html(options);
+                    });
+                }
+            });
+
+            $("#jabatan").change(function() {
+                let jabatanId = $(this).val();
+                $("#jurusan-box, #kelas-box, #user-box, #room-box").hide();
+                $("#jurusan, #kelas, #user").html('<option value="">-- Pilih --</option>');
+                if (jabatanId == 3) {
+                    $("#jurusan-box").show();
+                    $.getJSON("<?php echo site_url('GuestController/getJurusan'); ?>", function(data) {
+                        let options = '<option value="">-- Pilih Jurusan --</option>';
+                        if (data.length === 0) options += '<option value="">Tidak ada jurusan tersedia</option>';
+                        $.each(data, function(i, jurusan) {
+                            options += `<option value="${jurusan.id}">${jurusan.nama_jurusan}</option>`;
+                        });
+                        $("#jurusan").html(options);
+                    });
+                } else if (jabatanId) {
+                    $("#user-box").show();
+                    $.getJSON("<?php echo site_url('GuestController/getUsersByJabatan/'); ?>"+jabatanId, function(data) {
+                        let options = '<option value="">-- Pilih Nama --</option>';
+                        if (data.length === 0) options += '<option value="">Tidak ada nama tersedia</option>';
+                        $.each(data, function(i, staff) {
+                            options += `<option value="${staff.id}">${staff.name}</option>`;
+                        });
+                        $("#user").html(options);
+                    });
+                }
+            });
+
+            $("#jurusan").change(function() {
+                let jurusanId = $(this).val();
+                $("#kelas-box").show();
+                $.getJSON("<?php echo site_url('GuestController/getKelasByJurusan/'); ?>"+jurusanId, function(data) {
+                    let options = '<option value="">-- Pilih Kelas --</option>';
+                    if (data.length === 0) options += '<option value="">Tidak ada kelas tersedia</option>';
+                    $.each(data, function(i, kelas) {
+                        options += `<option value="${kelas.id}">${kelas.nama_kelas}</option>`;
+                    });
+                    $("#kelas").html(options);
+                });
+            });
+
+            $("#kelas").change(function() {
+                let kelasId = $(this).val();
+                $("#user-box").show();
+                $.getJSON("<?php echo site_url('GuestController/getWaliKelas/'); ?>"+kelasId, function(staff) {
+                    if (staff) {
+                        $("#user").html(`<option value="${staff.id}" selected>${staff.name}</option>`);
+                        $("#room-box").show();
+                        $("#room").val(staff.room_name || 'Tidak ada ruangan');
+                    } else {
+                        $("#user").html('<option value="">Tidak ada wali kelas</option>');
+                        $("#room-box").hide();
+                        $("#room").val('');
+                    }
+                });
+            });
+
+            $("#user").change(function() {
+                let staffId = $(this).val();
+                if (staffId) {
+                    $("#room-box").show();
+                    $.getJSON("<?php echo site_url('GuestController/getUserRoom/'); ?>"+staffId, function(data) {
+                        $("#room").val(data && data.room_name ? data.room_name : 'Tidak ada ruangan');
+                    });
+                } else {
+                    $("#room-box").hide();
+                    $("#room").val('');
+                }
+            });
+
+            $(".next-step").click(function() {
+                let currentCard = $(this).closest(".card");
+                let nextCard = $(this).data("next");
+                if ($("#user-box").is(":visible") && !$("#user").val()) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Pilih Nama',
+                        text: 'Silakan pilih nama terlebih dahulu!',
+                        showConfirmButton: false,
+                        timer: 5000
+                    });
+                    $("#user").addClass('is-invalid');
+                    return;
+                }
+                $("#" + nextCard).removeClass("hidden");
+                currentCard.addClass("hidden");
+            });
         });
     </script>
-</main>
 </body>
 </html>

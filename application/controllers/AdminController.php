@@ -139,7 +139,4 @@ class AdminController extends CI_Controller {
         // Tampilkan PDF di browser (Preview)
         $pdf->Output('Daftar_Tamu.pdf', 'I'); // I = Inline (ditampilkan langsung di browser)
     }
-    
-    
-    
 }

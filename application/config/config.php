@@ -24,9 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://localhost/butagi/';
-$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http") 
-. "://" . $_SERVER['HTTP_HOST']
-. str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
+$config['base_url'] = 'http://localhost/butagi-mainn/';
 
 /*
 |--------------------------------------------------------------------------
@@ -168,6 +166,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 /*
 |--------------------------------------------------------------------------
 | Enable Query Strings
+|
 |--------------------------------------------------------------------------
 |
 | By default CodeIgniter uses search-engine friendly segment based URLs:
@@ -228,7 +227,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 4;
 
 /*
 |--------------------------------------------------------------------------
@@ -533,3 +532,15 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+|--------------------------------------------------------------------------
+| Environment
+|--------------------------------------------------------------------------
+|
+| Set to development to show detailed errors
+|
+*/
+if (!defined('ENVIRONMENT')) {
+    define('ENVIRONMENT', 'development');
+}

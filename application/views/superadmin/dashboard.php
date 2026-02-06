@@ -118,6 +118,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('superadmin/manage_admins'); ?>">Manage Admins</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('superadmin/manage_events'); ?>">Manage Events</a>
+                </li>
             </ul>
 
             <h2>Daftar Admin</h2>
